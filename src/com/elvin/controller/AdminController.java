@@ -33,7 +33,7 @@ public class AdminController extends HttpServlet {
 		
 		if(uri.equals(cp+"/backend/admin/homepage"))
 		{
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/adminHome.jsp");
 			requestDispatcher.forward(request, response);
 		}
 	}
