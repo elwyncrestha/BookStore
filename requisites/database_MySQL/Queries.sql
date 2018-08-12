@@ -14,7 +14,8 @@ create table Book
     bookAuthor varchar(255) not null,
     bookPublisher varchar(255),
     bookPublishedDate date,
-    bookImageURL varchar(500)
+    bookImageURL varchar(500),
+    bookQuantity int
 );
 
 create table User
@@ -40,6 +41,7 @@ create table Book_User
 (
 	bookId int not null,
 	userId int not null,
+    quantity int,
     constraint fk_Book_User_bookId foreign key (bookId) references Book(bookId),
     constraint fk_Book_user_userId foreign key (userId) references User(userId)
 );
