@@ -264,7 +264,7 @@
 	                <a><i class="fa fa-user fa-fw"></i> User management<span class="fa arrow"></span></a>
 	                <ul class="nav nav-second-level">
 	                    <li>
-	                        <a href="#">Display Users</a>
+	                        <a href="${cp}/backend/account/display/all">Display Users</a>
 	                    </li>
 	                    <li>
 	                        <a href="#">Edit user details</a>

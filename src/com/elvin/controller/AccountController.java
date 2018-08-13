@@ -13,7 +13,7 @@ import com.elvin.model.User;
 /**
  * Servlet implementation class AccountController
  */
-@WebServlet({ "/backend/account/register", "/backend/account/login" })
+@WebServlet({ "/backend/account/register", "/backend/account/login","/backend/account/display/all"})
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,6 +38,11 @@ public class AccountController extends HttpServlet {
 			request.getRequestDispatcher("/register.jsp").forward(request, response);
 		} else if (uri.equals(cp + "/backend/account/login")) {
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+		else if(uri.equals(cp+"/backend/account/display/all"))
+		{
+			request.setAttribute("UserDetails", AccountDao.retrieveAllUsers());
+			request.getRequestDispatcher("/displayUsers.jsp").forward(request, response);
 		}
 	}
 

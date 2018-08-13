@@ -10,5 +10,6 @@
 <body>
 <h1>Hello</h1>
 <a href="${cp}/backend/account/login">Login</a>
+<a href="${cp}/backend/account/display/all">Login</a>
 </body>
 </html>

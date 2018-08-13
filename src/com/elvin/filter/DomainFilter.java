@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet Filter implementation class DomainFilter
  */
-@WebFilter("/*")
+@WebFilter("/asd")
 public class DomainFilter implements Filter {
 
 	/**
