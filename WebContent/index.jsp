@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="cp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,5 +9,7 @@
 </head>
 <body>
 <h1>Hello</h1>
+<a href="${cp}/backend/account/login">Login</a>
+<a href="${cp}/backend/account/register">Register</a>
 </body>
 </html>
