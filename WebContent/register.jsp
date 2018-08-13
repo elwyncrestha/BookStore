@@ -15,7 +15,7 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form" action="" method="post">
+						<form role="form" action="${pageContext.request.contextPath}/backend/account/register" method="post">
 							<fieldset>
 								<div class="row">
 									<div class="form-group col-lg-6">

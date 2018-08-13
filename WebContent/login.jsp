@@ -13,15 +13,15 @@
 						<h3 class="panel-title">Please Sign In</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form">
+						<form role="form" action="${pageContext.request.contextPath}/backend/account/login" method="post">
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="E-mail" name="email"
-										type="email" autofocus>
+										type="email" autofocus required="required">
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Password"
-										name="password" type="password" value="">
+										name="password" type="password" required="required">
 								</div>
 								<div class="checkbox">
 									<label> <input name="remember" type="checkbox"
