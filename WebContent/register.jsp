@@ -15,7 +15,7 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form" action="${pageContext.request.contextPath}/backend/account/register" method="post">
+						<form role="form" action="${pageContext.request.contextPath}/account/register" method="post">
 							<fieldset>
 								<div class="row">
 									<div class="form-group col-lg-6">
@@ -68,7 +68,7 @@
 										class="btn btn-lg btn-success btn-block btn-outline">
 								</div>
 								<div class="form-group text-center">
-									<a href="${pageContext.request.contextPath}/backend/account/login">Login instead <i class="fa fa-long-arrow-left"></i></a>
+									<a href="${pageContext.request.contextPath}/account/login">Login instead <i class="fa fa-long-arrow-left"></i></a>
 								</div>
 							</fieldset>
 						</form>

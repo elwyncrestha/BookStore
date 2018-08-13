@@ -13,7 +13,7 @@
 						<h3 class="panel-title">Please Sign In</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form" action="${pageContext.request.contextPath}/backend/account/login" method="post">
+						<form role="form" action="${pageContext.request.contextPath}/account/login" method="post">
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="E-mail" name="email"
@@ -32,7 +32,7 @@
                                     <input type="submit" class="btn btn-lg btn-success btn-block" value="Login">
                                 </div>
                                 <div class="form-group text-center">
-                                    <a href="${pageContext.request.contextPath}/backend/account/register">Register an account <i class="fa fa-long-arrow-right"></i></a>
+                                    <a href="${pageContext.request.contextPath}/account/register">Register an account <i class="fa fa-long-arrow-right"></i></a>
                                 </div>
 							</fieldset>
 						</form>

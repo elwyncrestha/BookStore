@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.elvin.dao.AccountDao;
 import com.elvin.model.User;
@@ -13,7 +14,7 @@ import com.elvin.model.User;
 /**
  * Servlet implementation class AccountController
  */
-@WebServlet({ "/backend/account/register", "/backend/account/login","/backend/account/display/all"})
+@WebServlet({ "/account/register", "/account/login","/backend/account/display/all","/account/logout"})
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,15 +35,21 @@ public class AccountController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String cp = request.getContextPath();
 
-		if (uri.equals(cp + "/backend/account/register")) {
+		if (uri.equals(cp + "/account/register")) {
 			request.getRequestDispatcher("/register.jsp").forward(request, response);
-		} else if (uri.equals(cp + "/backend/account/login")) {
+		} else if (uri.equals(cp + "/account/login")) {
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 		else if(uri.equals(cp+"/backend/account/display/all"))
 		{
 			request.setAttribute("UserDetails", AccountDao.retrieveAllUsers());
 			request.getRequestDispatcher("/displayUsers.jsp").forward(request, response);
+		}
+		else if(uri.equals(cp+"/account/logout"))
+		{
+			HttpSession httpSession = request.getSession();
+			httpSession.invalidate();
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}
 
@@ -55,7 +62,7 @@ public class AccountController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String cp = request.getContextPath();
 
-		if (uri.equals(cp + "/backend/account/register")) {
+		if (uri.equals(cp + "/account/register")) {
 			String firstName = request.getParameter("firstName");
 			String lastName = request.getParameter("lastName");
 			String address = request.getParameter("address");
@@ -69,18 +76,20 @@ public class AccountController extends HttpServlet {
 			boolean status = AccountDao.createUser(user);
 
 			if (status) {
-				response.sendRedirect(cp + "/backend/account/login");
+				response.sendRedirect(cp + "/account/login");
 			} else {
 				request.setAttribute("ErrorMessage", "Couldn't add user !!!");
 				request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
 			}
-		} else if (uri.equals(cp + "/backend/account/login")) {
+		} else if (uri.equals(cp + "/account/login")) {
 			String username = request.getParameter("email");
 			String password = request.getParameter("password");
 			
 			boolean status = AccountDao.validateUserLogin(username, password);
 			if(status)
 			{
+				HttpSession httpSession = request.getSession();
+				httpSession.setAttribute("user", "admin");
 				response.sendRedirect(cp+"/backend/admin/homepage");
 			}
 			else
