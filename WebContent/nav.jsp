@@ -267,7 +267,7 @@
 	                        <a href="${cp}/backend/account/display/all">Display Users</a>
 	                    </li>
 	                    <li>
-	                        <a href="#">Edit user details</a>
+	                        <a href="${cp}/backend/account/edit">Edit user details</a>
 	                    </li>
 	                </ul>
 	                <!-- /.nav-second-level -->

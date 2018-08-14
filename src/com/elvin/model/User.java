@@ -7,7 +7,7 @@ public class User {
 	private String address;
 	private String dob;
 	private String phone;
-	private char gender;
+	private String gender;
 	private String username;
 	private String password;
 	private boolean isAdmin;
@@ -16,7 +16,7 @@ public class User {
 		super();
 	}
 
-	public User(int userId, String firstName, String lastName, String address, String dob, String phone, char gender,
+	public User(int userId, String firstName, String lastName, String address, String dob, String phone, String gender,
 			String username, String password, boolean isAdmin) {
 		super();
 		this.userId = userId;
@@ -31,7 +31,7 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
-	public User(String firstName, String lastName, String address, String dob, String phone, char gender,
+	public User(String firstName, String lastName, String address, String dob, String phone, String gender,
 			String username, String password, boolean isAdmin) {
 		super();
 		this.firstName = firstName;
@@ -93,11 +93,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
