@@ -213,7 +213,7 @@
 	            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
 	            </li>
 	            <li class="divider"></li>
-	            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+	            <li><a href="${cp}/account/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 	            </li>
 	        </ul>
 	        <!-- /.dropdown-user -->
@@ -264,10 +264,10 @@
 	                <a><i class="fa fa-user fa-fw"></i> User management<span class="fa arrow"></span></a>
 	                <ul class="nav nav-second-level">
 	                    <li>
-	                        <a href="#">Display Users</a>
+	                        <a href="${cp}/backend/account/display/all">Display Users</a>
 	                    </li>
 	                    <li>
-	                        <a href="#">Edit user details</a>
+	                        <a href="${cp}/backend/account/edit">Edit user details</a>
 	                    </li>
 	                </ul>
 	                <!-- /.nav-second-level -->

@@ -26,7 +26,10 @@ create table User
     userAddress varchar(255),
     userDOB date,
     userPhoneNo varchar(20),
-    userGender char(1)
+    userGender char(1),
+    userUsername varchar(255),
+    userPassword varchar(255),
+    isAdmin bit
 );
 
 create table Book_BookCategory
