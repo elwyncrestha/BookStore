@@ -252,10 +252,10 @@
 	                <a><i class="fa fa-tags fa-fw"></i> Book Category<span class="fa arrow"></span></a>
 	                <ul class="nav nav-second-level">
 	                    <li>
-	                        <a href="#">Add category</a>
+	                        <a href="${cp}/backend/book/category/add">Add category</a>
 	                    </li>
 	                    <li>
-	                        <a href="#">Display categories</a>
+	                        <a href="${cp}/backend/book/category/display/all">Display categories</a>
 	                    </li>
 	                </ul>
 	                <!-- /.nav-second-level -->
