@@ -58,3 +58,4 @@ create table UserCategoryInterest
 );
 
 show tables;
+select * from user;

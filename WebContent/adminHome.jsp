@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="cp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +31,12 @@
 									<i class="fa fa-book fa-5x"></i>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge">0</div>
+									<div class="huge">${CountDetails.bookCount}</div>
 									<div>Total Books</div>
 								</div>
 							</div>
 						</div>
-						<a href="#">
+						<a href="${cp}/backend/book/display/all">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -51,12 +53,12 @@
 									<i class="fa fa-tasks fa-5x"></i>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge">0</div>
+									<div class="huge">${CountDetails.bookCategoryCount}</div>
 									<div>Total Book Categories</div>
 								</div>
 							</div>
 						</div>
-						<a href="#">
+						<a href="${cp}/backend/book/category/display/all">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -73,12 +75,12 @@
 									<i class="fa fa-users fa-5x"></i>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge">0</div>
+									<div class="huge">${CountDetails.userCount}</div>
 									<div>Total Users</div>
 								</div>
 							</div>
 						</div>
-						<a href="#">
+						<a href="${cp}/backend/account/display/all">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -95,8 +97,8 @@
 									<i class="fa fa-shopping-cart fa-5x"></i>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge">0</div>
-									<div>Total book sales</div>
+									<div class="huge">${CountDetails.bookSalesCount}</div>
+									<div>Total Book Sales</div>
 								</div>
 							</div>
 						</div>

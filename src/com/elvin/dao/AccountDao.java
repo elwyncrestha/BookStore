@@ -11,6 +11,41 @@ import com.elvin.utility.MyConnection;
 
 public class AccountDao {
 
+	public static boolean verifyUsername(String username) {
+		Connection connection = MyConnection.connect();
+		PreparedStatement preparedStatement = null;
+		boolean status = true;
+
+		if (connection != null) {
+			String sql = "select COUNT(userId) from user where userUsername=?";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, username);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				
+				while(resultSet.next())
+				{
+					int count = resultSet.getInt(1);
+					if(count == 0)
+					{
+						status = false;
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					preparedStatement.close();
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return status;
+	}
+
 	public static boolean createUser(User user) {
 		Connection connection = MyConnection.connect();
 		PreparedStatement preparedStatement = null;
@@ -189,17 +224,42 @@ public class AccountDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				try
-				{
+				try {
 					preparedStatement.close();
 					connection.close();
-				}
-				catch(SQLException e)
-				{
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		return status;
+	}
+
+	public static int getUserId(String username) {
+		Connection connection = MyConnection.connect();
+		PreparedStatement preparedStatement = null;
+		int userId = 0;
+
+		if (connection != null) {
+			String sql = "select userId from user where userUsername=?";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, username);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					userId = resultSet.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					preparedStatement.close();
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return userId;
 	}
 }
