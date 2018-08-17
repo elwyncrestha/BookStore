@@ -1,25 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="cp" value="${pageContext.request.contextPath}"></c:set>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Elvin Shrestha</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 	<div class="navbar-header">
 	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -228,12 +209,12 @@
 	            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
 	        </a>
 	        <ul class="dropdown-menu dropdown-user">
-	            <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user fa-fw"></i> User Profile</a>
+	            <li><a href="${cp}/backend/account/display/info"><i class="fa fa-user fa-fw"></i> User Profile</a>
 	            </li>
 	            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
 	            </li>
 	            <li class="divider"></li>
-	            <li><a href="${cp}/account/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+	            <li><a href="" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 	            </li>
 	        </ul>
 	        <!-- /.dropdown-user -->
@@ -298,3 +279,24 @@
 	</div>
 	<!-- /.navbar-static-side -->
 </nav>
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Are you sure ?</h3>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <a href="${cp}/account/logout" class="btn btn-primary">Logout</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

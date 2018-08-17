@@ -13,12 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import com.elvin.dao.AccountDao;
 import com.elvin.model.User;
+import com.elvin.utility.ActiveUser;
 
 /**
  * Servlet implementation class AccountController
  */
 @WebServlet({ "/account/register", "/account/login", "/backend/account/display/all", "/account/logout",
-		"/backend/account/edit", "/backend/account/edit/data" })
+		"/backend/account/edit", "/backend/account/edit/data", "/backend/account/display/info" })
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -59,6 +60,10 @@ public class AccountController extends HttpServlet {
 			ArrayList<User> arrayList = AccountDao.selectById(userId);
 			request.setAttribute("UserDetails", arrayList);
 			request.getRequestDispatcher("/editUserStatus.jsp").forward(request, response);
+		} else if (uri.equals(cp + "/backend/account/display/info")) {
+			System.out.println(ActiveUser.username);
+			request.setAttribute("UserProfile", AccountDao.selectById(AccountDao.getUserId(ActiveUser.username)));
+			request.getRequestDispatcher("/displayUserProfile.jsp").forward(request, response);
 		}
 	}
 
@@ -72,22 +77,27 @@ public class AccountController extends HttpServlet {
 		String cp = request.getContextPath();
 
 		if (uri.equals(cp + "/account/register")) {
-			String firstName = request.getParameter("firstName");
-			String lastName = request.getParameter("lastName");
-			String address = request.getParameter("address");
-			String dob = request.getParameter("dob");
-			String phoneNumber = request.getParameter("phoneNumber");
-			String gender = request.getParameter("gender");
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
+			if (AccountDao.verifyUsername(request.getParameter("email")) == false) {
+				String firstName = request.getParameter("firstName");
+				String lastName = request.getParameter("lastName");
+				String address = request.getParameter("address");
+				String dob = request.getParameter("dob");
+				String phoneNumber = request.getParameter("phoneNumber");
+				String gender = request.getParameter("gender");
+				String email = request.getParameter("email");
+				String password = request.getParameter("password");
 
-			User user = new User(firstName, lastName, address, dob, phoneNumber, gender, email, password, false);
-			boolean status = AccountDao.createUser(user);
+				User user = new User(firstName, lastName, address, dob, phoneNumber, gender, email, password, false);
+				boolean status = AccountDao.createUser(user);
 
-			if (status) {
-				response.sendRedirect(cp + "/account/login");
+				if (status) {
+					response.sendRedirect(cp + "/account/login");
+				} else {
+					request.setAttribute("ErrorMessage", "Couldn't add user !!!");
+					request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
+				}
 			} else {
-				request.setAttribute("ErrorMessage", "Couldn't add user !!!");
+				request.setAttribute("ErrorMessage", "Email already taken !!!");
 				request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
 			}
 		} else if (uri.equals(cp + "/account/login")) {
@@ -97,6 +107,7 @@ public class AccountController extends HttpServlet {
 			boolean status = AccountDao.validateUserLogin(username, password);
 			if (status) {
 				HttpSession httpSession = request.getSession();
+				ActiveUser.username = username;
 				httpSession.setAttribute("user", "admin");
 				response.sendRedirect(cp + "/backend/admin/homepage");
 			} else {
@@ -105,24 +116,29 @@ public class AccountController extends HttpServlet {
 			}
 
 		} else if (uri.equals(cp + "/backend/account/edit/data")) {
-			int userId = Integer.parseInt(request.getParameter("id"));
-			String firstName = request.getParameter("firstName");
-			String lastName = request.getParameter("lastName");
-			String address = request.getParameter("address");
-			String dob = request.getParameter("dob");
-			String phoneNumber = request.getParameter("phoneNumber");
-			String gender = request.getParameter("gender");
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			boolean isAdmin = Boolean.parseBoolean(request.getParameter("adminStatus"));
+			if (AccountDao.verifyUsername(request.getParameter("email")) == false) {
+				int userId = Integer.parseInt(request.getParameter("id"));
+				String firstName = request.getParameter("firstName");
+				String lastName = request.getParameter("lastName");
+				String address = request.getParameter("address");
+				String dob = request.getParameter("dob");
+				String phoneNumber = request.getParameter("phoneNumber");
+				String gender = request.getParameter("gender");
+				String email = request.getParameter("email");
+				String password = request.getParameter("password");
+				boolean isAdmin = Boolean.parseBoolean(request.getParameter("adminStatus"));
 
-			boolean status = AccountDao.updateUser(
-					new User(userId, firstName, lastName, address, dob, phoneNumber, gender, email, password, isAdmin));
+				boolean status = AccountDao.updateUser(new User(userId, firstName, lastName, address, dob, phoneNumber,
+						gender, email, password, isAdmin));
 
-			if (status) {
-				response.sendRedirect(cp + "/backend/account/display/all");
+				if (status) {
+					response.sendRedirect(cp + "/backend/account/display/all");
+				} else {
+					request.setAttribute("ErrorMessage", "User update failed !!!");
+					request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
+				}
 			} else {
-				request.setAttribute("ErrorMessage", "User update failed !!!");
+				request.setAttribute("ErrorMessage", "Email already taken !!!");
 				request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
 			}
 		}
