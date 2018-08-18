@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="cp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -40,14 +40,16 @@
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${CategoryDetails}" var="cd">
-									<tr>
-										<td>${cd.categoryId}</td>
-										<td>${cd.categoryName}</td>
-										<td><a href="${cp}/backend/book/category/edit?id=${cd.categoryId}">Edit</a></td>
-										<td><a href="${cp}/backend/book/category/delete?id=${cd.categoryId}">Delete</a></td>
-									</tr>
-								</c:forEach>
+									<c:forEach items="${CategoryDetails}" var="cd">
+										<tr>
+											<td>${cd.categoryId}</td>
+											<td>${cd.categoryName}</td>
+											<td><a
+												href="${cp}/backend/book/category/edit?id=${cd.categoryId}">Edit</a></td>
+											<td><a
+												href="" data-toggle="modal" data-target="#deleteModal">Delete</a></td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- /.table-responsive -->
@@ -83,6 +85,25 @@
 			});
 		});
 	</script>
+
+	<!-- Delete Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="exampleModalLabel">Are you sure ?</h3>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<a href="${cp}/backend/book/category/delete?id=${cd.categoryId}"
+						class="btn btn-primary">Delete</a>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
