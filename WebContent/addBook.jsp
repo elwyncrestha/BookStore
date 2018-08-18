@@ -52,7 +52,7 @@
 											name="bookPublisher" type="text" placeholder="Hardcover" required>
 									</div>
 									<div class="form-group">
-										<label>Book Published Date:</label> <input
+										<label>Book Publication Date:</label> <input
 											class="form-control" name="bookPublishedDate" type="date"
 											required>
 									</div>

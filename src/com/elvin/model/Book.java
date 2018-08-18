@@ -1,5 +1,7 @@
 package com.elvin.model;
 
+import java.io.InputStream;
+
 public class Book {
 	private int bookId;
 	private String bookName;
@@ -7,13 +9,14 @@ public class Book {
 	private String bookAuthor;
 	private String bookPublisher;
 	private String bookPublishedDate;
-	private String bookImageURL;
+	private InputStream bookImageURL;
 	private int bookQuantity;
+	private String bookImageName;
 	
 	public Book() {}
 
 	public Book(int bookId, String bookName, float bookPrice, String bookAuthor, String bookPublisher,
-			String bookPublishedDate, String bookImageURL, int bookQuantity) {
+			String bookPublishedDate, InputStream bookImageURL, int bookQuantity, String bookImageName) {
 		super();
 		this.bookId = bookId;
 		this.bookName = bookName;
@@ -23,10 +26,11 @@ public class Book {
 		this.bookPublishedDate = bookPublishedDate;
 		this.bookImageURL = bookImageURL;
 		this.bookQuantity = bookQuantity;
+		this.bookImageName = bookImageName;
 	}
 
 	public Book(String bookName, float bookPrice, String bookAuthor, String bookPublisher, String bookPublishedDate,
-			String bookImageURL, int bookQuantity) {
+			InputStream bookImageURL, int bookQuantity, String bookImageName) {
 		super();
 		this.bookName = bookName;
 		this.bookPrice = bookPrice;
@@ -35,6 +39,7 @@ public class Book {
 		this.bookPublishedDate = bookPublishedDate;
 		this.bookImageURL = bookImageURL;
 		this.bookQuantity = bookQuantity;
+		this.bookImageName = bookImageName;
 	}
 
 	public int getBookId() {
@@ -85,11 +90,11 @@ public class Book {
 		this.bookPublishedDate = bookPublishedDate;
 	}
 
-	public String getBookImageURL() {
+	public InputStream getBookImageURL() {
 		return bookImageURL;
 	}
 
-	public void setBookImageURL(String bookImageURL) {
+	public void setBookImageURL(InputStream bookImageURL) {
 		this.bookImageURL = bookImageURL;
 	}
 
@@ -99,6 +104,14 @@ public class Book {
 
 	public void setBookQuantity(int bookQuantity) {
 		this.bookQuantity = bookQuantity;
+	}
+	
+	public String getBookImageName() {
+		return bookImageName;
+	}
+
+	public void setBookImageName(String bookImageName) {
+		this.bookImageName = bookImageName;
 	}
 	
 }

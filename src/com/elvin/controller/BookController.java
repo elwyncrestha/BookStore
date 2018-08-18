@@ -1,7 +1,8 @@
 package com.elvin.controller;
 
-import java.io.File;
+import java.io.InputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -43,6 +44,9 @@ public class BookController extends HttpServlet {
 
 		if (uri.equals(cp + "/backend/book/add")) {
 			request.getRequestDispatcher("/addBook.jsp").forward(request, response);
+		} else if (uri.equals(cp + "/backend/book/display/all")) {
+			request.setAttribute("BookDetails", BookDao.displayAll());
+			request.getRequestDispatcher("/displayBooks.jsp").forward(request, response);
 		}
 	}
 
@@ -57,86 +61,27 @@ public class BookController extends HttpServlet {
 
 		if (uri.equals(cp + "/backend/book/add")) {
 			// variables
-			String bookName = null;
-			float bookPrice = 0;
-			String bookAuthor = null;
-			String bookPublisher = null;
-			String bookPublishedDate = null;
-			String bookImageURL = null;
-			int bookQuantity = 0;
+			String bookName = request.getParameter("bookName");
+			float bookPrice = Float.parseFloat(request.getParameter("bookPrice"));
+			String bookAuthor = request.getParameter("bookAuthor");
+			String bookPublisher = request.getParameter("bookPublisher");
+			String bookPublishedDate = request.getParameter("bookPublishedDate");
+			int bookQuantity = Integer.parseInt(request.getParameter("bookQuantity"));
+			InputStream bookImage = null;
+
+			Part filePart = request.getPart("bookImageURL");
+			String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+			bookImage = filePart.getInputStream();
 			
-			// gets absolute path of the web application
-			String appPath = request.getServletContext().getRealPath("");
-			System.out.println(appPath);
+			boolean status = BookDao.add(new Book(bookName, bookPrice, bookAuthor, bookPublisher, bookPublishedDate,
+					bookImage, bookQuantity,fileName));
 
-			// constructs path of the directory to save uploaded file
-			String savePath = appPath + SAVE_DIR;
-			//String savePath = appPath + File.separator + SAVE_DIR;
-			System.out.println(savePath);
-
-			// creates the save directory if it does not exists
-			File fileSaveDir = new File(savePath);
-			if (!fileSaveDir.exists()) {
-				fileSaveDir.mkdir();
-			}
-
-			for (Part part : request.getParts()) {
-				if (part.getName().equals("bookName")){
-	                bookName = request.getParameter("bookName");
-	            }
-	            else if (part.getName().equals("bookPrice")){
-	                bookPrice = Float.parseFloat(request.getParameter("bookPrice"));
-	            }
-	            else if(part.getName().equals("bookAuthor"))
-	            {
-	            	bookAuthor = request.getParameter("bookAuthor");
-	            }
-	            else if(part.getName().equals("bookPublisher"))
-	            {
-	            	bookPublisher = request.getParameter("bookPublisher");
-	            }
-	            else if(part.getName().equals("bookPublishedDate"))
-	            {
-	            	bookPublishedDate = request.getParameter("bookPublishedDate");
-	            }
-	            else if(part.getName().equals("bookQuantity"))
-	            {
-	            	bookQuantity = Integer.parseInt(request.getParameter("bookQuantity"));
-	            }
-	            else if (part.getName().equals("bookImageURL")) {
-	                String fileName = extractFileName(part);
-	                //refines the fileName in case it is an absolute path
-	                fileName = new File(fileName).getName();
-
-	                part.write(savePath + File.separator + fileName);
-	                bookImageURL = savePath + File.separator + fileName;
-	            }
-			}
-			boolean status = BookDao.add(new Book(bookName,bookPrice,bookAuthor,bookPublisher,bookPublishedDate,bookImageURL,bookQuantity));
-			
-			if(status)
-			{
-				response.sendRedirect("/backend/book/display/all");
-			}
-			else
-			{
+			if (status) {
+				response.sendRedirect(cp+"/backend/book/display/all");
+			} else {
 				request.setAttribute("ErrorMessage", "Book addition process failed !!!");
 				request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
 			}
 		}
 	}
-
-	private static final String SAVE_DIR = "bookImages";
-
-	private String extractFileName(Part part) {
-		String contentDisplay = part.getHeader("content-disposition");
-		String[] items = contentDisplay.split(";");
-		for (String s : items) {
-			if (s.trim().startsWith("filename")) {
-				return s.substring(s.indexOf("=") + 2, s.length() - 1);
-			}
-		}
-		return "";
-	}
-
 }
