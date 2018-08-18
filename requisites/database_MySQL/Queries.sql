@@ -15,7 +15,8 @@ create table Book
     bookPublisher varchar(255),
     bookPublishedDate date,
     bookImageURL varchar(500),
-    bookQuantity int
+    bookQuantity int,
+    bookImageName varchar(255) unique
 );
 
 create table User
@@ -58,4 +59,3 @@ create table UserCategoryInterest
 );
 
 show tables;
-select * from user;
