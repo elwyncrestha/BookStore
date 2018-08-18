@@ -1,0 +1,6 @@
+To quickly understand uploading and displaying process of  image using the servlet
+-Follow link serially
+1. https://stackoverflow.com/questions/7033676/how-to-upload-an-image-and-save-it-in-database
+2. https://stackoverflow.com/questions/2422468/how-to-upload-files-to-server-using-jsp-servlet/2424824#2424824
+3. https://stackoverflow.com/questions/2340406/how-to-retrieve-and-display-images-from-a-database-in-a-jsp-page
+4. https://stackoverflow.com/questions/18664579/recommended-way-to-save-uploaded-files-in-a-servlet-application/18664715#18664715
