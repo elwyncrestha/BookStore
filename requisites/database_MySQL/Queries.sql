@@ -38,7 +38,8 @@ create table Book_BookCategory
 	bookId int not null,
     categoryId int not null,
     constraint fk_Book_BookCategory_bookId foreign key (bookId) references Book(bookId),
-    constraint fk_Book_BookCategory_categoryId foreign key (categoryId) references BookCategory(categoryId)
+    constraint fk_Book_BookCategory_categoryId foreign key (categoryId) references BookCategory(categoryId),
+    constraint pk_Book_BookCategory primary key (bookId,categoryId)
 );
 
 create table Book_User
@@ -47,7 +48,8 @@ create table Book_User
 	userId int not null,
     quantity int,
     constraint fk_Book_User_bookId foreign key (bookId) references Book(bookId),
-    constraint fk_Book_user_userId foreign key (userId) references User(userId)
+    constraint fk_Book_user_userId foreign key (userId) references User(userId),
+    constraint pk_Book_User primary key (bookId,userId)
 );
 
 create table UserCategoryInterest
@@ -55,7 +57,8 @@ create table UserCategoryInterest
 	categoryId int not null,
 	userId int not null,
     constraint fk_UserCategoryInterest_categoryId foreign key (categoryId) references BookCategory(categoryId),
-    constraint fk_UserCategoryInterest_userId foreign key (userId) references User(userId)
+    constraint fk_UserCategoryInterest_userId foreign key (userId) references User(userId),
+    constraint pk_UserCategoryInterest primary key (categoryId,userId)
 );
 
 show tables;

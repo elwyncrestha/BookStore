@@ -14,7 +14,7 @@ import com.elvin.model.BookCategory;
  * Servlet implementation class BookCategoryController
  */
 @WebServlet({ "/backend/book/category/add", "/backend/book/category/display/all", "/backend/book/category/edit",
-		"/backend/book/category/delete" })
+		"/backend/book/category/delete"})
 public class BookCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class BookCategoryController extends HttpServlet {
 			int categoryId = Integer.parseInt(request.getParameter("id"));
 			BookCategoryDao.delete(categoryId);
 			response.sendRedirect(cp + "/backend/book/category/display/all");
-		}
+		} 
 	}
 
 	/**

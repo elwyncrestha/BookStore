@@ -250,6 +250,17 @@
 	                <a href="${cp}/backend/book/edit/all"><i class="fa fa-edit fa-fw"></i> Edit Book Information</a>
 	            </li>
 	            <li>
+	            	<a><i class="fa fa-tag fa-fw"></i> Book Genre<span class="fa arrow"></span></a>
+	            	<ul class="nav nav-second-level">
+	            		<li>
+	            			<a href="${cp}/backend/bbc/assign">Assign book genre</a>
+	            		</li>
+	            		<li>
+	            			<a href="${cp}/backend/bbc/display">Display book genre</a>
+	            		</li>
+	            	</ul>
+	            </li>
+	            <li>
 	                <a><i class="fa fa-tags fa-fw"></i> Book Category<span class="fa arrow"></span></a>
 	                <ul class="nav nav-second-level">
 	                    <li>
