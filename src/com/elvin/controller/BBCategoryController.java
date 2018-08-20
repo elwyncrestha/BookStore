@@ -1,6 +1,9 @@
 package com.elvin.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +14,8 @@ import com.elvin.dao.BBCategoryDao;
 import com.elvin.dao.BookCategoryDao;
 import com.elvin.dao.BookDao;
 import com.elvin.model.BBCategory;
+import com.elvin.model.BBGenre;
+import com.elvin.model.Book;
 
 /**
  * Servlet implementation class BBCategoryController
@@ -38,13 +43,30 @@ public class BBCategoryController extends HttpServlet {
 
 		if (uri.equals(cp + "/backend/bbc/assign")) {
 			request.setAttribute("BookDetails", BookDao.displayAll());
-			request.getRequestDispatcher("/assignBookCategory.jsp").forward(request, response);
+			request.getRequestDispatcher("/assignBookGenre.jsp").forward(request, response);
 		} else if (uri.equals(cp + "/backend/bbc/load/one")) {
 			int bookId = Integer.parseInt(request.getParameter("id"));
 			request.setAttribute("BookDetails", BookDao.displayAll());
 			request.setAttribute("BBCDetails", BookDao.selectById(bookId));
 			request.setAttribute("CategoryDetails", BookCategoryDao.displayAll());
-			request.getRequestDispatcher("/assignBookCategory.jsp").forward(request, response);
+			request.getRequestDispatcher("/assignBookGenre.jsp").forward(request, response);
+		} else if (uri.equals(cp + "/backend/bbc/display")) {
+			ArrayList<Book> bookList = BookDao.displayAll();
+			ArrayList<BBGenre> bookGenreList = new ArrayList<>();
+			
+			for(int i = 0; i < bookList.size(); i ++)
+			{
+				int bookId = bookList.get(i).getBookId();
+				String bookGenre = BBCategoryDao.getGenreString(bookId);
+				InputStream bookImage = bookList.get(i).getBookImageURL();
+				String bookImageName = bookList.get(i).getBookImageName();
+				String bookName = bookList.get(i).getBookName();
+				
+				bookGenreList.add(new BBGenre(bookImage,bookImageName,bookName,bookGenre));
+			}
+			
+			request.setAttribute("GenreDetails", bookGenreList);
+			request.getRequestDispatcher("/displayBookGenre.jsp").forward(request, response);
 		}
 	}
 
@@ -56,23 +78,19 @@ public class BBCategoryController extends HttpServlet {
 			throws ServletException, IOException {
 		String uri = request.getRequestURI();
 		String cp = request.getContextPath();
-		
-		if(uri.equals(cp+"/backend/bbc/assign"))
-		{
+
+		if (uri.equals(cp + "/backend/bbc/assign")) {
 			boolean status = false;
 			int bookId = Integer.parseInt(request.getParameter("bookId"));
 			String[] categoryIdArray = request.getParameterValues("categoryId");
-			for(int i = 0; i < categoryIdArray.length; i ++)
-			{
-				int categoryId = Integer.parseInt(categoryIdArray[i]); 
-				status = BBCategoryDao.assignCategory(new BBCategory(bookId,categoryId));
+			for (int i = 0; i < categoryIdArray.length; i++) {
+				int categoryId = Integer.parseInt(categoryIdArray[i]);
+				status = BBCategoryDao.assignCategory(new BBCategory(bookId, categoryId));
 			}
-			
-			if(status)
-			{
-				response.sendRedirect(cp+"/backend/bbc/display");
-			}else
-			{
+
+			if (status) {
+				response.sendRedirect(cp + "/backend/bbc/display");
+			} else {
 				request.setAttribute("ErrorMessage", "Book category assign failed !!!");
 				request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
 			}

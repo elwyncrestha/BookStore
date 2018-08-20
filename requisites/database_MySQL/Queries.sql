@@ -62,4 +62,3 @@ create table UserCategoryInterest
 );
 
 show tables;
-desc usercategoryinterest;
