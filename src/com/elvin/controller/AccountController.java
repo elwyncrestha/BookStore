@@ -50,7 +50,7 @@ public class AccountController extends HttpServlet {
 		} else if (uri.equals(cp + "/account/logout")) {
 			HttpSession httpSession = request.getSession();
 			httpSession.invalidate();
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		} else if (uri.equals(cp + "/backend/account/edit")) {
 			request.setAttribute("UserDetails", AccountDao.retrieveAllUsers());
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/editUser.jsp");
