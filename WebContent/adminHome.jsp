@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="cp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -128,6 +128,8 @@
 									aria-expanded="true">Intro</a></li>
 								<li class=""><a href="#book" data-toggle="tab"
 									aria-expanded="false">Book</a></li>
+								<li class=""><a href="#bookgenre" data-toggle="tab"
+									aria-expanded="false">Book Genre</a></li>
 								<li class=""><a href="#bookCategory" data-toggle="tab"
 									aria-expanded="false">Book Category</a></li>
 								<li class=""><a href="#userManagement" data-toggle="tab"
@@ -155,6 +157,16 @@
 										used for displaying available books in the store. And <b>Edit
 											Book Information</b> is used for editing the book details. Also,
 										it is used for changing the quantity of available books.
+									</p>
+								</div>
+								<div class="tab-pane fade" id="bookgenre">
+									<h4>Book Genre Tab</h4>
+									<p class="text-justify">
+										In order to assign specific genre of the book, the navigation
+										named Book Genre can be used.<br> Sub categories are: <b>Assign
+											book genre</b> and <b>Display book genre</b>. Assign book genre
+										can be used to assign and edit (re-assign) the book category
+										or genre. Whereas, Display book genre can be used to view the list of categorized books.
 									</p>
 								</div>
 								<div class="tab-pane fade" id="bookCategory">
