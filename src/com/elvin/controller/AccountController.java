@@ -67,7 +67,6 @@ public class AccountController extends HttpServlet {
 			request.setAttribute("UserDetails", arrayList);
 			request.getRequestDispatcher("/editUserStatus.jsp").forward(request, response);
 		} else if (uri.equals(cp + "/backend/account/display/info")) {
-			System.out.println(ActiveUser.username);
 			request.setAttribute("UserProfile", AccountDao.selectById(AccountDao.getUserId(ActiveUser.username)));
 			request.getRequestDispatcher("/displayUserProfile.jsp").forward(request, response);
 		}
