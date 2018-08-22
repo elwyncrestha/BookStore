@@ -80,8 +80,12 @@ public class BBCategoryController extends HttpServlet {
 		String cp = request.getContextPath();
 
 		if (uri.equals(cp + "/backend/bbc/assign")) {
-			boolean status = false;
 			int bookId = Integer.parseInt(request.getParameter("bookId"));
+			// delete in case of re-assign
+			BBCategoryDao.deleteCategories(bookId);
+			
+			// assign or re-assign(in case of update)
+			boolean status = false;
 			String[] categoryIdArray = request.getParameterValues("categoryId");
 			for (int i = 0; i < categoryIdArray.length; i++) {
 				int categoryId = Integer.parseInt(categoryIdArray[i]);

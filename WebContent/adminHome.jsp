@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="cp" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
 			<!-- /.row -->
 
 			<div class="row">
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-4 col-md-6">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<div class="row">
@@ -45,7 +45,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-4 col-md-6">
 					<div class="panel panel-green">
 						<div class="panel-heading">
 							<div class="row">
@@ -67,7 +67,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-4 col-md-6">
 					<div class="panel panel-yellow">
 						<div class="panel-heading">
 							<div class="row">
@@ -81,28 +81,6 @@
 							</div>
 						</div>
 						<a href="${cp}/backend/account/display/all">
-							<div class="panel-footer">
-								<span class="pull-left">View Details</span> <span
-									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-								<div class="clearfix"></div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="panel panel-red">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<i class="fa fa-shopping-cart fa-5x"></i>
-								</div>
-								<div class="col-xs-9 text-right">
-									<div class="huge">${CountDetails.bookSalesCount}</div>
-									<div>Total Book Sales</div>
-								</div>
-							</div>
-						</div>
-						<a href="#">
 							<div class="panel-footer">
 								<span class="pull-left">View Details</span> <span
 									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -128,6 +106,8 @@
 									aria-expanded="true">Intro</a></li>
 								<li class=""><a href="#book" data-toggle="tab"
 									aria-expanded="false">Book</a></li>
+								<li class=""><a href="#bookgenre" data-toggle="tab"
+									aria-expanded="false">Book Genre</a></li>
 								<li class=""><a href="#bookCategory" data-toggle="tab"
 									aria-expanded="false">Book Category</a></li>
 								<li class=""><a href="#userManagement" data-toggle="tab"
@@ -155,6 +135,16 @@
 										used for displaying available books in the store. And <b>Edit
 											Book Information</b> is used for editing the book details. Also,
 										it is used for changing the quantity of available books.
+									</p>
+								</div>
+								<div class="tab-pane fade" id="bookgenre">
+									<h4>Book Genre Tab</h4>
+									<p class="text-justify">
+										In order to assign specific genre of the book, the navigation
+										named Book Genre can be used.<br> Sub categories are: <b>Assign
+											book genre</b> and <b>Display book genre</b>. Assign book genre
+										can be used to assign and edit (re-assign) the book category
+										or genre. Whereas, Display book genre can be used to view the list of categorized books.
 									</p>
 								</div>
 								<div class="tab-pane fade" id="bookCategory">

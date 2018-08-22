@@ -38,7 +38,7 @@ public class BBCategoryDao {
 		}
 		return status;
 	}
-	
+
 	public static String getGenreString(int bookId) {
 		Connection connection = MyConnection.connect();
 		PreparedStatement preparedStatement = null;
@@ -61,7 +61,31 @@ public class BBCategoryDao {
 				}
 
 				genreString = genreStringBuffer.toString();
-				
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					preparedStatement.close();
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return genreString;
+	}
+
+	public static void deleteCategories(int bookId) {
+		Connection connection = MyConnection.connect();
+		PreparedStatement preparedStatement = null;
+
+		if (connection != null) {
+			String sql = "delete from Book_BookCategory where bookId=?";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, bookId);
+				preparedStatement.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally
@@ -70,12 +94,11 @@ public class BBCategoryDao {
 				{
 					preparedStatement.close();
 					connection.close();
-				}catch(SQLException e)
+				} catch(SQLException e)
 				{
 					e.printStackTrace();
 				}
 			}
 		}
-		return genreString;
 	}
 }

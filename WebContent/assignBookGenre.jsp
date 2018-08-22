@@ -123,10 +123,6 @@
 															<input type="submit" value="Assign"
 																class="btn btn-lg btn-success btn-block btn-outline">
 														</div>
-														<div class="form-group">
-															<a href="" data-toggle="modal" data-target="#deleteModal"
-																class="btn btn-lg btn-danger btn-block btn-outline">Delete</a>
-														</div>
 													</fieldset>
 												</form>
 											</div>
@@ -165,25 +161,6 @@
 			});
 		});
 	</script>
-
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title" id="exampleModalLabel">Are you sure ?</h3>
-				</div>
-				<div class="modal-body">...</div>
-				<div class="modal-footer">
-					<a href="${cp}/backend/book/category/delete?id=${cd.categoryId}"
-						class="btn btn-primary">Delete</a>
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 </body>
 </html>

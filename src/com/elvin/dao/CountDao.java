@@ -48,7 +48,6 @@ public class CountDao {
 		count.setBookCount(tableRowCount("book"));
 		count.setBookCategoryCount(tableRowCount("bookCategory"));
 		count.setUserCount(tableRowCount("user"));
-		count.setBookSalesCount(tableRowCount("book_user"));
 		
 		return count;
 	}
