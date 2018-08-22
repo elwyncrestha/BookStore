@@ -305,7 +305,7 @@
         ...
       </div>
       <div class="modal-footer">
-        <a href="${cp}/account/logout" class="btn btn-primary">Logout</a>
+        <a href="${cp}/frontend/homepage" class="btn btn-primary">Logout</a>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

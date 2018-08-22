@@ -12,9 +12,11 @@ public class Book {
 	private InputStream bookImageURL;
 	private int bookQuantity;
 	private String bookImageName;
-	
+	private String bookGenre;
+
 	public Book() {}
 
+	// with id, without genre
 	public Book(int bookId, String bookName, float bookPrice, String bookAuthor, String bookPublisher,
 			String bookPublishedDate, InputStream bookImageURL, int bookQuantity, String bookImageName) {
 		super();
@@ -29,6 +31,7 @@ public class Book {
 		this.bookImageName = bookImageName;
 	}
 
+	// without id and genre
 	public Book(String bookName, float bookPrice, String bookAuthor, String bookPublisher, String bookPublishedDate,
 			InputStream bookImageURL, int bookQuantity, String bookImageName) {
 		super();
@@ -40,6 +43,38 @@ public class Book {
 		this.bookImageURL = bookImageURL;
 		this.bookQuantity = bookQuantity;
 		this.bookImageName = bookImageName;
+	}
+	
+	// with id and genre
+	public Book(int bookId, String bookName, float bookPrice, String bookAuthor, String bookPublisher,
+			String bookPublishedDate, InputStream bookImageURL, int bookQuantity, String bookImageName,
+			String bookGenre) {
+		super();
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.bookPrice = bookPrice;
+		this.bookAuthor = bookAuthor;
+		this.bookPublisher = bookPublisher;
+		this.bookPublishedDate = bookPublishedDate;
+		this.bookImageURL = bookImageURL;
+		this.bookQuantity = bookQuantity;
+		this.bookImageName = bookImageName;
+		this.bookGenre = bookGenre;
+	}
+
+	// without id, with genre
+	public Book(String bookName, float bookPrice, String bookAuthor, String bookPublisher, String bookPublishedDate,
+			InputStream bookImageURL, int bookQuantity, String bookImageName, String bookGenre) {
+		super();
+		this.bookName = bookName;
+		this.bookPrice = bookPrice;
+		this.bookAuthor = bookAuthor;
+		this.bookPublisher = bookPublisher;
+		this.bookPublishedDate = bookPublishedDate;
+		this.bookImageURL = bookImageURL;
+		this.bookQuantity = bookQuantity;
+		this.bookImageName = bookImageName;
+		this.bookGenre = bookGenre;
 	}
 
 	public int getBookId() {
@@ -112,6 +147,14 @@ public class Book {
 
 	public void setBookImageName(String bookImageName) {
 		this.bookImageName = bookImageName;
+	}
+	
+	public String getBookGenre() {
+		return bookGenre;
+	}
+
+	public void setBookGenre(String bookGenre) {
+		this.bookGenre = bookGenre;
 	}
 	
 }
