@@ -139,6 +139,29 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class="text-center">
+					<form action="${cp}/backend/uci/update" method="post" novalidate>
+						<div class="form-group">
+							<h5>Your genre interest:</h5>
+							<br>
+							<c:forEach items="${CategoryDetails}" var="cd">
+								<span> <label> <input type="checkbox"
+										name="categoryId" value="${cd.categoryId}"
+										<c:if test="${VerifyCategory.contains(cd.categoryName)}">checked</c:if>>
+										${cd.categoryName}
+								</label>
+								</span>
+							</c:forEach>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-xl js-scroll-trigger"
+								value="Update">
+						</div>
+					</form>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
 				<c:if test="${not empty BookDetails}">
 					<c:forEach items="${BookDetails}" var="bd">
 						<div class="col-md-4 col-sm-6 portfolio-item">

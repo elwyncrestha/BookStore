@@ -11,14 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.elvin.dao.AccountDao;
 import com.elvin.dao.BBCategoryDao;
+import com.elvin.dao.BookCategoryDao;
 import com.elvin.dao.BookDao;
+import com.elvin.dao.UCInterestDao;
 import com.elvin.model.Book;
+import com.elvin.model.UserCategoryInterest;
 import com.elvin.utility.ActiveUser;
 
 /**
  * Servlet implementation class SiteController
  */
-@WebServlet({ "/frontend/homepage" })
+@WebServlet({ "/frontend/homepage", "/backend/uci/update" })
 public class SiteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -61,8 +64,11 @@ public class SiteController extends HttpServlet {
 						book.getBookPublisher(), book.getBookPublishedDate(), book.getBookImageURL(),
 						book.getBookQuantity(), book.getBookImageName(), bookGenres));
 			}
-
 			request.setAttribute("BookDetails", bookList);
+			// for categories check-box
+			request.setAttribute("CategoryDetails", BookCategoryDao.displayAll());
+			// for category verify
+			request.setAttribute("VerifyCategory", UCInterestDao.getInterestString(AccountDao.getUserId(ActiveUser.username)));
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}
@@ -73,8 +79,23 @@ public class SiteController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String uri = request.getRequestURI();
+		String cp = request.getContextPath();
+
+		if (uri.equals(cp + "/backend/uci/update")) {
+			int userId = AccountDao.getUserId(ActiveUser.username);System.out.println("Current user: "+ActiveUser.username);
+			UCInterestDao.deleteAllInterest(userId);
+
+			String[] genreInterest = request.getParameterValues("categoryId");
+			if (genreInterest != null) {
+				for (int i = 0; i < genreInterest.length; i++) {
+					int categoryId = Integer.parseInt(genreInterest[i]);
+					UCInterestDao.assignInterest(new UserCategoryInterest(userId, categoryId));
+				}
+			}
+
+			response.sendRedirect(cp + "/frontend/homepage");
+		}
 	}
 
 }
