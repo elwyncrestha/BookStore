@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.elvin.dao.AccountDao;
+import com.elvin.dao.BookCategoryDao;
+import com.elvin.dao.UCInterestDao;
 import com.elvin.model.User;
+import com.elvin.model.UserCategoryInterest;
 import com.elvin.utility.ActiveUser;
 
 /**
@@ -41,6 +44,7 @@ public class AccountController extends HttpServlet {
 		String cp = request.getContextPath();
 
 		if (uri.equals(cp + "/account/register")) {
+			request.setAttribute("CategoryDetails", BookCategoryDao.displayAll());
 			request.getRequestDispatcher("/register.jsp").forward(request, response);
 		} else if (uri.equals(cp + "/account/login")) {
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -50,7 +54,9 @@ public class AccountController extends HttpServlet {
 		} else if (uri.equals(cp + "/account/logout")) {
 			HttpSession httpSession = request.getSession();
 			httpSession.invalidate();
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			ActiveUser.username = null;
+			ActiveUser.isAdmin = false;
+			request.getRequestDispatcher("/default.jsp").forward(request, response);
 		} else if (uri.equals(cp + "/backend/account/edit")) {
 			request.setAttribute("UserDetails", AccountDao.retrieveAllUsers());
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/editUser.jsp");
@@ -86,11 +92,22 @@ public class AccountController extends HttpServlet {
 				String gender = request.getParameter("gender");
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
+				String[] genreInterest = request.getParameterValues("categoryId");
 
 				User user = new User(firstName, lastName, address, dob, phoneNumber, gender, email, password, false);
+				ActiveUser.username = email;	// used to retrieve userId for storing genre interests.
 				boolean status = AccountDao.createUser(user);
 
 				if (status) {
+					// assign genre interest
+					int userId = AccountDao.getUserId(ActiveUser.username);
+					for(int i = 0; i < genreInterest.length; i ++)
+					{
+						int categoryId = Integer.parseInt(genreInterest[i]);
+						UCInterestDao.assignInterest(new UserCategoryInterest(userId, categoryId));
+					}
+					
+					// redirect
 					response.sendRedirect(cp + "/account/login");
 				} else {
 					request.setAttribute("ErrorMessage", "Couldn't add user !!!");
@@ -108,8 +125,9 @@ public class AccountController extends HttpServlet {
 			if (status) {
 				HttpSession httpSession = request.getSession();
 				ActiveUser.username = username;
+				ActiveUser.isAdmin = AccountDao.isAdmin(ActiveUser.username);
 				httpSession.setAttribute("user", "admin");
-				response.sendRedirect(cp + "/backend/admin/homepage");
+				response.sendRedirect(cp + "/frontend/homepage");
 			} else {
 				request.setAttribute("ErrorMessage", "Login failed !!!");
 				request.getRequestDispatcher("/errorPage.jsp").forward(request, response);

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,9 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form" action="${pageContext.request.contextPath}/account/register" method="post">
+						<form role="form"
+							action="${pageContext.request.contextPath}/account/register"
+							method="post">
 							<fieldset>
 								<div class="row">
 									<div class="form-group col-lg-6">
@@ -64,11 +67,23 @@
 										minlength="8" required>
 								</div>
 								<div class="form-group">
+									<label>Choose book genre interest:</label><br>
+									<c:forEach items="${CategoryDetails}" var="cd">
+										<div class="checkbox">
+											<label> <input type="checkbox" name="categoryId"
+												value="${cd.categoryId}"> ${cd.categoryName}
+											</label>
+										</div>
+									</c:forEach>
+								</div>
+								<div class="form-group">
 									<input type="submit" value="Register"
 										class="btn btn-lg btn-success btn-block btn-outline">
 								</div>
 								<div class="form-group text-center">
-									<a href="${pageContext.request.contextPath}/account/login">Login instead <i class="fa fa-long-arrow-left"></i></a>
+									<a href="${pageContext.request.contextPath}/account/login">Login
+										instead <i class="fa fa-long-arrow-left"></i>
+									</a>
 								</div>
 							</fieldset>
 						</form>

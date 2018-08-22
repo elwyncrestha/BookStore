@@ -178,36 +178,62 @@ public class BookDao {
 		boolean status = false;
 		Connection connection = MyConnection.connect();
 		PreparedStatement preparedStatement = null;
-		
-		if(connection != null)
-		{
+
+		if (connection != null) {
 			String sql = "delete from book where bookId=?";
-			try
-			{
+			try {
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1, id);
 				int i = preparedStatement.executeUpdate();
-				if(i != 0)
-				{
+				if (i != 0) {
 					status = true;
 				}
-			}catch(SQLException e)
-			{
+			} catch (SQLException e) {
 				e.printStackTrace();
-			}
-			finally
-			{
-				try
-				{
+			} finally {
+				try {
 					preparedStatement.close();
 					connection.close();
-				}
-				catch(SQLException e)
-				{
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		return status;
+	}
+
+	public static ArrayList<Book> displayInterestedBookId(int userId) {
+		ArrayList<Book> arrayList = new ArrayList<>();
+		Connection connection = MyConnection.connect();
+		PreparedStatement preparedStatement = null;
+
+		if (connection != null) {
+			String sql = "select b.bookId from book b, book_bookcategory bbc, bookcategory bc, usercategoryinterest uci where b.bookId=bbc.bookId and bbc.categoryId=bc.categoryId and bc.categoryId=uci.categoryId and uci.userId=? order by b.bookId asc";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, userId);
+
+				ResultSet resultSet = preparedStatement.executeQuery();
+				int testDuplicateId = 0;
+				while (resultSet.next()) {
+					int bookId = resultSet.getInt(1);
+					if(bookId != testDuplicateId)
+					{
+						arrayList.add(new Book(bookId,null,0,null,null,null,null,0,null,null));
+						testDuplicateId = bookId;
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					preparedStatement.close();
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return arrayList;
 	}
 }

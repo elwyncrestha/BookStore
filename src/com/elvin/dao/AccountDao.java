@@ -91,7 +91,7 @@ public class AccountDao {
 		boolean status = false;
 
 		if (connection != null) {
-			String sql = "select userId from User where userUsername=? and userPassword=? and isAdmin=1";
+			String sql = "select userId from User where userUsername=? and userPassword=?";
 			try {
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setString(1, username);
@@ -261,5 +261,46 @@ public class AccountDao {
 			}
 		}
 		return userId;
+	}
+	
+	public static boolean isAdmin(String username)
+	{
+		Connection connection = MyConnection.connect();
+		PreparedStatement preparedStatement = null;
+		boolean status = false;
+		
+		if(connection != null)
+		{
+			String sql = "select isAdmin from User where userUsername=?";
+			try
+			{
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, username);
+				
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while(resultSet.next())
+				{
+					System.out.println(status);
+					System.out.println(username);
+					status = resultSet.getBoolean(1);
+					System.out.println(status);
+				}
+			} catch(SQLException e)
+			{
+				e.printStackTrace();
+			} finally
+			{
+				try
+				{
+					preparedStatement.close();
+					connection.close();
+				}
+				catch(SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		return status;
 	}
 }
