@@ -47,7 +47,7 @@
 											<td><a
 												href="${cp}/backend/book/category/edit?id=${cd.categoryId}">Edit</a></td>
 											<td><a
-												href="" data-toggle="modal" data-target="#deleteModal">Delete</a></td>
+												href="${cp}/backend/book/category/delete?id=${cd.categoryId}">Delete</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -85,25 +85,6 @@
 			});
 		});
 	</script>
-
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title" id="exampleModalLabel">Are you sure ?</h3>
-				</div>
-				<div class="modal-body">...</div>
-				<div class="modal-footer">
-					<a href="${cp}/backend/book/category/delete?id=${cd.categoryId}"
-						class="btn btn-primary">Delete</a>
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 </body>
 </html>
